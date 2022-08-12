@@ -1,15 +1,13 @@
 package com.example.project.controller;
 
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.example.project.model.StudentBean;
-import com.example.project.repository.StudentMapper;
-import com.example.project.repository.StudentRepository;
+import com.example.project.model.Chapter_batch;
+import com.example.project.repository.Chapter_batchRepo;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,22 +16,16 @@ import lombok.extern.slf4j.Slf4j;
 public class TestController {
 	
 	@Autowired
-	StudentRepository studentRepo;
-	
-	@Autowired
-	StudentMapper studentMapper;
+	Chapter_batchRepo chapter_batchRepo;
 
 	@GetMapping("/")
 	public ModelAndView test() {
-		StudentBean studentBean = new StudentBean();
-		log.info("ok");
-		//studentBean.setName("qwe");
-		//studentRepo.save(studentBean);
+	
+		Chapter_batch chapter_batch = new Chapter_batch();
 		
-		studentBean.setId(1);
-		studentBean = studentMapper.selectById(studentBean);
-		
-		log.info(studentBean.getName());
+		chapter_batch = chapter_batchRepo.selectCourseDetail(1);
+				
+		log.info(chapter_batch.getChapter().getName()+"......."+chapter_batch.getStart_date());
 		
 		return new ModelAndView("test");
 	}
